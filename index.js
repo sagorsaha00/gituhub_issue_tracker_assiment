@@ -96,9 +96,10 @@ async function dataLoad() {
     try {
         const response = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
         const data = await response.json();
-        allissueData = data;
-        openData = allissueData.data.filter(issue => issue.status === "open");
-        closedData = allissueData.data.filter(issue => issue.status === "closed");
+        allissueData = data.data;
+        console.log("allissueData", allissueData)
+        openData = allissueData.filter(issue => issue.status === "open");
+        closedData = allissueData.filter(issue => issue.status === "closed");
         console.log("openData", openData);
         console.log("closedData", closedData);
 
@@ -109,31 +110,17 @@ async function dataLoad() {
 
 
 const allGirdBox = document.getElementsByClassName('.alldataGirdBox')
-console.log("allGridbox", allGirdBox)
+const allBtn = document.getElementById('all-btn')
+const closebtn = document.getElementById('close-btn')
+const openbtn = document.getElementById('open-btn')
 
 
-function showTabByData(event) {
 
-    const tabs = document.querySelectorAll('.header-btn');
-
-    tabs.forEach(tab => {
-        tab.classList.remove('bg-indigo-600', 'text-white');
-        tab.classList.add('text-gray-600');
-    });
-
-    const headerbutton = event.target;
-
-    headerbutton.classList.add('bg-indigo-600', 'text-white');
-}
 
 
 function renderDisplayAllDataByGrid(allData) {
-
-    console.log("allData", allData.data);
-
     const allissueGrid = document.querySelector(".alldataGirdBox");
-
-    const renderData = allData.data.map((data) => {
+    const renderData = allData.map((data) => {
         const date = data.updatedAt
         const dateObj = new Date(date);
         const formattedDate = dateObj.toLocaleDateString('en-US', {
@@ -193,13 +180,44 @@ ${data.labels.map((label) => {
 
     allissueGrid.innerHTML = renderData.join("");
 }
+ document.addEventListener('DOMContentLoaded', () => {
+        allBtn.addEventListener('click', () => {
+            console.log("clicked all")
+            renderDisplayAllDataByGrid(allissueData)
+        })
+
+        closebtn.addEventListener('click', () => {
+            console.log("clicked close")
+            renderDisplayAllDataByGrid(closedData)
+        })
+
+        openbtn.addEventListener('click', () => {
+            console.log("clicked open")
+            renderDisplayAllDataByGrid(openData)
+        })
+
+    })
 
 
+window.onload = () => {
+    allBtn.classList.add('bg-indigo-600', 'text-white')
+    renderDisplayAllDataByGrid(allissueData)
 
+}
+function showTabByData(event) {
+
+    const tabs = document.querySelectorAll('.header-btn');
+    tabs.forEach(tab => {
+        tab.classList.remove('bg-indigo-600', 'text-white');
+        tab.classList.add('text-gray-600');
+    });
+    const headerbutton = event.target;
+    headerbutton.classList.add('bg-indigo-600', 'text-white');
+}
 async function main() {
     await dataLoad();
     renderDisplayAllDataByGrid(allissueData)
-    showTabByData()
+     
 }
 
 main();
