@@ -1,16 +1,148 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <meta charset="UTF-8">
+    <title>GitHub Issues Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
-    <h1 class="text-3xl font-bold underline">
-        Hello world!
-    </h1>
+    <!-- <div class="bg-gray-100  min-h-screen w-screen flex items-center justify-center p-8">
+
+
+        <div class="bg-white w-full max-w-md shadow-lg rounded-xl p-8">
+
+            <div class="text-center">
+                <img src="./assets/github-logo.png" class="w-16 h-16 mx-auto">
+                <h1 class="text-2xl font-semibold mt-4">
+                    GitHub Issues Tracker
+                </h1>
+                <p class="text-gray-500 mt-2">
+                    Sign in to manage your issues
+                </p>
+            </div>
+            <div class="mt-8">
+
+
+                <label class="block text-sm font-semibold mb-1">
+                    Username
+                </label>
+
+                <input type="text" placeholder="Enter Username"
+                    class="w-full border rounded-md h-10 px-3    focus:ring-indigo-500">
+
+                <p class="text-indigo-600 text-sm mt-1">
+                    Default: admin
+                </p>
+
+                <label class="block text-sm font-semibold mt-5 mb-1">
+                    Password
+                </label>
+
+                <input type="password" placeholder="Enter Password"
+                    class="w-full border rounded-md h-10 px-3  focus:ring-indigo-500">
+
+                <p class="text-indigo-600 text-sm mt-1">
+                    Default: admin
+                </p>
+                <button class="w-full bg-indigo-600 text-white h-10 rounded-md mt-6 hover:bg-indigo-700 transition">
+                    Sign In
+                </button>
+
+            </div>
+
+
+            <div class="text-center my-6 text-gray-400">
+                OR
+            </div>
+
+            <div class="text-center text-sm">
+                <p class="font-medium mb-2 text-indigo-600">
+                    Demo Credentials
+                </p>
+
+                <p>
+                    <span class="font-semibold text-indigo-600">Username:</span> admin
+                </p>
+
+                <p>
+                    <span class="font-semibold text-indigo-600">Password:</span> admin123
+                </p>
+            </div>
+
+        </div>
+    </div> -->
+
+
+
+
+    <div class="w-full rounded h-[100px] bg-whtie-300 shadow-balck-500/50 shadow-xl mt-4 ">
+        <div class="justify-between flex">
+            <div class="flex text-white items-center m-6">
+                <img class="h-[50px] w-[50px]" src="/assets/github-logo.png" alt="">
+                <h1 class="ml-3 text-black font-semibold font-sans">GitHub Issues Tracker</h1>
+
+            </div>
+            <div class="flex items-center gap-3 m-6">
+
+                <input type="text" placeholder="Search issues"
+                    class="px-4 py-2 w-72 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
+
+                <button class="px-4 py-2 bg-indigo-600 text-white rounded   font-medium">
+                    New Issue
+                </button>
+
+            </div>
+        </div>
+    </div>
+    <div class="bg-gray-100 p-4 rounded-lg mt-6 w-[80%] mx-auto">
+
+        <button onclick=showTabByData(event) id="all"
+            class="px-6 py-2 rounded-md border border-indigo-600 bg-indigo-600 text-white font-medium header-btn">
+            All
+        </button>
+
+        <button onclick=showTabByData(event) id="open"
+            class="px-6 py-2 rounded-md border border-indigo-600 border text-gray-600 header-btn ">
+            Open
+        </button>
+
+        <button onclick=showTabByData(event) id="close"
+            class="px-6 py-2 rounded-md border border-indigo-600 border text-gray-600 header-btn ">
+            Closed
+        </button>
+
+
+    </div>
+    <div class="bg-gray-100 p-10 rounded-lg mt-6 w-[80%] mx-auto justify-between flex">
+        <div>
+            <h1>
+                50 issues
+            </h1>
+            <p>
+                Track and manage your project issues
+            </p>
+        </div>
+        <div class="flex gap-3">
+            <span class="">.</span>
+            <h1>open</h1>
+            <span>.</span>
+            <h1>closed</h1>
+        </div>
+    </div>
+
+    <div>
+
+    </div>
+
+
+    <div id="alldataGirdBox" class="grid grid-cols-4 m-4 w-[80%] mx-auto mt-6 alldataGirdBox ">
+
+
+    </div>
+
+    <script src="/index.js"></script>
 </body>
 
 </html>
