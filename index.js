@@ -41,12 +41,12 @@ function loginFunc() {
     const loginvalue = logininputValue.value;
     const passvalue = passwordValue.value;
 
-    // if (!loginvalue || !passvalue) {
-    //     logininputValue.value = '';
-    //     passwordValue.value = '';
-    //     alert("please pass your username or password");
-    //     return;
-    // }
+    if (!loginvalue || !passvalue) {
+        logininputValue.value = '';
+        passwordValue.value = '';
+        alert("please pass your username or password");
+        return;
+    }
 
     if (loginvalue === 'admin' && passvalue === 'admin123') {
         loginUserData.push({
