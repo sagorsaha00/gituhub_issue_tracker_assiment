@@ -1,96 +1,10 @@
-/**
- *  <div class=" w-[350px] bg-white rounded-lg shadow-md p-4 space-y-3 border-t-4 border-indigo-500">
-            <div class="flex justify-end">
-                <span class="px-2 py-1 text-xs font-semibold text-red-600 bg-red-100 rounded-full">
-                    HIGH
-                </span>
-            </div>
-            <h2 class="text-gray-900 font-semibold text-lg">
-                Fix Navigation Menu On Mobile Devices
-            </h2>
-            <p class="text-gray-500 text-sm">
-                The navigation menu doesn't collapse properly on mobile devices.
-            </p>
-
-            <div class="flex gap-2">
-                <span class="px-2 py-1 text-xs font-semibold text-red-600 bg-red-100 rounded-full">
-                    BUG
-                </span>
-                <span class="px-2 py-1 text-xs font-semibold text-yellow-600 bg-yellow-100 rounded-full">
-                    HELP WANTED
-                </span>
-            </div>
-
-            <!-- Author & Date -->
-            <p class="text-gray-400 text-xs">
-                #1 by <span class="font-medium text-gray-700">john_doe</span> · 1/15/2024
-            </p>
-        </div>
-        <div class=" w-[350px] bg-white rounded-lg shadow-md p-4 space-y-3 border-t-4 border-indigo-500">
-            <div class="flex justify-end">
-                <span class="px-2 py-1 text-xs font-semibold text-red-600 bg-red-100 rounded-full">
-                    HIGH
-                </span>
-            </div>
-            <h2 class="text-gray-900 font-semibold text-lg">
-                Fix Navigation Menu On Mobile Devices
-            </h2>
-            <p class="text-gray-500 text-sm">
-                The navigation menu doesn't collapse properly on mobile devices.
-            </p>
-
-            <div class="flex gap-2">
-                <span class="px-2 py-1 text-xs font-semibold text-red-600 bg-red-100 rounded-full">
-                    BUG
-                </span>
-                <span class="px-2 py-1 text-xs font-semibold text-yellow-600 bg-yellow-100 rounded-full">
-                    HELP WANTED
-                </span>
-            </div>
-
-            <!-- Author & Date -->
-            <p class="text-gray-400 text-xs">
-                #1 by <span class="font-medium text-gray-700">john_doe</span> · 1/15/2024
-            </p>
-        </div>
-        <div class=" w-[350px] bg-white rounded-lg shadow-md p-4 space-y-3 border-t-4 border-indigo-500">
-            <div class="flex justify-end">
-                <span class="px-2 py-1 text-xs font-semibold text-red-600 bg-red-100 rounded-full">
-                    HIGH
-                </span>
-            </div>
-            <h2 class="text-gray-900 font-semibold text-lg">
-                Fix Navigation Menu On Mobile Devices
-            </h2>
-            <p class="text-gray-500 text-sm">
-                The navigation menu doesn't collapse properly on mobile devices.
-            </p>
-
-            <div class="flex gap-2">
-                <span class="px-2 py-1 text-xs font-semibold text-red-600 bg-red-100 rounded-full">
-                    BUG
-                </span>
-                <span class="px-2 py-1 text-xs font-semibold text-yellow-600 bg-yellow-100 rounded-full">
-                    HELP WANTED
-                </span>
-            </div>
-
-            <!-- Author & Date -->
-            <p class="text-gray-400 text-xs">
-                #1 by <span class="font-medium text-gray-700">john_doe</span> · 1/15/2024
-            </p>
-        </div>
-*/
-
-
-
-
-//''
+ 
+ 
 let allissueData = [];
 let openData = [];
 let closedData = [];
-
-
+let searchData = []
+let loginUserData = []
 
 async function dataLoad() {
     try {
@@ -113,13 +27,49 @@ const allGirdBox = document.getElementsByClassName('.alldataGirdBox')
 const allBtn = document.getElementById('all-btn')
 const closebtn = document.getElementById('close-btn')
 const openbtn = document.getElementById('open-btn')
+const inputValue = document.getElementById('searchInput')
+const issuelength = document.getElementById('issuelength')
 
 
 
+const logininputValue = document.getElementById('inputValue');
+const passwordValue = document.getElementById('passwordValue');
+const loginFromFull = document.getElementById('loginFromFull')
+const fullDatabody = document.getElementById('fulldataloadbody')
+
+function loginFunc() {
+    const loginvalue = logininputValue.value;
+    const passvalue = passwordValue.value;
+
+    // if (!loginvalue || !passvalue) {
+    //     logininputValue.value = '';
+    //     passwordValue.value = '';
+    //     alert("please pass your username or password");
+    //     return;
+    // }
+
+    if (loginvalue === 'admin' && passvalue === 'admin123') {
+        loginUserData.push({
+            username: loginvalue,
+            password: passvalue
+        });
+        loginFromFull.classList.add("hidden");
+        fullDatabody.classList.remove("hidden")
+        console.log("loginUserData", loginUserData);
+        alert("Login successful");
+
+
+    } else {
+        alert("Invalid username or password");
+    }
+
+    console.log('pass', loginvalue, passvalue);
+}
 
 
 function renderDisplayAllDataByGrid(allData) {
     const allissueGrid = document.querySelector(".alldataGirdBox");
+    issuelength.innerText = allissueData.length
     const renderData = allData.map((data) => {
         const date = data.updatedAt
         const dateObj = new Date(date);
@@ -128,7 +78,7 @@ function renderDisplayAllDataByGrid(allData) {
             month: 'short',
             year: 'numeric'
         });
-        return ` <div class=" w-5/6  bg-white rounded-lg shadow-md p-2 ${data.status === 'open' ? 'border-t-4 border-indigo-500' : 'border-t-4 border-green-500'}   mb-2">
+        return ` <div id="openModal" onclick="showIssueDetails('${data.id}')" class=" w-5/6 cursor-pointer bg-white rounded-lg shadow-md p-2 ${data.status === 'open' ? 'border-t-4 border-indigo-500' : 'border-t-4 border-green-500'}   mb-2">
             
             <div class="flex justify-end">
                <span class="px-2 py-1 text-xs font-semibold rounded-full
@@ -180,28 +130,142 @@ ${data.labels.map((label) => {
 
     allissueGrid.innerHTML = renderData.join("");
 }
- document.addEventListener('DOMContentLoaded', () => {
-        allBtn.addEventListener('click', () => {
-            console.log("clicked all")
-            renderDisplayAllDataByGrid(allissueData)
-        })
 
-        closebtn.addEventListener('click', () => {
-            console.log("clicked close")
-            renderDisplayAllDataByGrid(closedData)
-        })
 
-        openbtn.addEventListener('click', () => {
-            console.log("clicked open")
-            renderDisplayAllDataByGrid(openData)
-        })
 
+
+function searchIssues() {
+    const searchValue = inputValue.value;
+    console.log("inputValue", searchValue)
+    const filteredData = allissueData.filter((issue) => {
+        return issue.title.toLowerCase().includes(searchValue.toLowerCase());
+    });
+    renderDisplayAllDataByGrid(filteredData);
+}
+
+
+async function showIssueDetails(id) {
+
+    const fethdata = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
+    const data = await fethdata.json()
+    const issue = data.data
+    console.log("issue", issue)
+    const date = issue.updatedAt
+    const dateObj = new Date(date);
+    const formattedDate = dateObj.toLocaleDateString('en-US', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+    });
+    const modal = document.getElementById("issueModal")
+    const content = document.getElementById("modalContent")
+
+    modal.classList.remove("hidden")
+    content.innerHTML = `
+        <div class="w-100% mx-auto   ">
+
+        <h1 class="text-[28px] font-bold text-gray-800 mb-3">
+            ${issue.title}
+        </h1>
+
+        <div class="flex items-center gap-3 text-gray-500 mb-6">
+
+            <span class="bg-green-100 text-green-700 bg-green-500 px-4 py-1 rounded-full text-sm font-medium">
+                ${issue.status}
+            </span>
+
+            <span>•</span>
+
+            <span>Opened by <b class="text-black-600">${issue.author}</b></span>
+
+            <span>•</span>
+
+            <span>${formattedDate}</span>
+
+        </div>
+
+
+        <div class="flex gap-2 ">
+${issue.labels.map((label) => {
+        return `
+    <span class="px-2 py-1 text-xs font-semibold rounded-full
+    ${label === 'bug'
+                ? 'text-red-600 bg-red-100'
+                : label === 'help wanted'
+                    ? 'text-yellow-600 bg-yellow-100'
+                    : 'text-green-600 bg-green-100'
+            }">
+        ${label.toUpperCase()}
+    </span>
+    `
+    })}
+</div>
+
+
+        <p class="text-gray-500 mb-6 leading-relaxed">
+            ${issue.description}
+        </p>
+
+
+        <div class="bg-gray-100 w-50% rounded-xl p-6 flex justify-between items-center mt-6">
+
+            <div>
+                <p class="text-gray-500">Assignee:</p>
+                <p class="font-semibold text-gray-800">${issue.assignee
+        }</p>
+            </div>
+
+            <div>
+                <p class="text-gray-500">Priority:</p>
+                      <span class="px-2 py-1 text-xs font-semibold rounded-full
+     ${issue.priority === 'high'
+            ? 'text-red-600 bg-red-100'
+            : issue.priority === 'medium'
+                ? 'text-yellow-600 bg-yellow-100'
+                : 'text-gray-600 bg-gray-100'
+        }">
+      ${issue.priority.toUpperCase()}
+     </span>
+            </div>
+
+        </div>
+
+        
+
+    </div>
+    `
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    allBtn.addEventListener('click', () => {
+        console.log("clicked all")
+        renderDisplayAllDataByGrid(allissueData)
     })
+
+    closebtn.addEventListener('click', () => {
+        console.log("clicked close")
+        renderDisplayAllDataByGrid(closedData)
+    })
+
+    openbtn.addEventListener('click', () => {
+        console.log("clicked open")
+        renderDisplayAllDataByGrid(openData)
+    })
+
+})
+function closeModal() {
+    document.getElementById("issueModal")
+        .classList.add("hidden")
+}
+
+
 
 
 window.onload = () => {
     allBtn.classList.add('bg-indigo-600', 'text-white')
     renderDisplayAllDataByGrid(allissueData)
+  
 
 }
 function showTabByData(event) {
@@ -217,7 +281,8 @@ function showTabByData(event) {
 async function main() {
     await dataLoad();
     renderDisplayAllDataByGrid(allissueData)
-     
+    loginFunc()
+
 }
 
 main();
