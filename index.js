@@ -11,11 +11,10 @@ async function dataLoad() {
         const response = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
         const data = await response.json();
         allissueData = data.data;
-        console.log("allissueData", allissueData)
+     
         openData = allissueData.filter(issue => issue.status === "open");
         closedData = allissueData.filter(issue => issue.status === "closed");
-        console.log("openData", openData);
-        console.log("closedData", closedData);
+         
 
     } catch (error) {
         console.error("Error loading data:", error);
@@ -55,7 +54,7 @@ function loginFunc() {
         });
         loginFromFull.classList.add("hidden");
         fullDatabody.classList.remove("hidden")
-        console.log("loginUserData", loginUserData);
+        
         alert("Login successful");
 
 
@@ -63,7 +62,7 @@ function loginFunc() {
         alert("Invalid username or password");
     }
 
-    console.log('pass', loginvalue, passvalue);
+     
 }
 
 
@@ -136,7 +135,7 @@ ${data.labels.map((label) => {
 
 function searchIssues() {
     const searchValue = inputValue.value;
-    console.log("inputValue", searchValue)
+ 
     const filteredData = allissueData.filter((issue) => {
         return issue.title.toLowerCase().includes(searchValue.toLowerCase());
     });
@@ -149,7 +148,7 @@ async function showIssueDetails(id) {
     const fethdata = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
     const data = await fethdata.json()
     const issue = data.data
-    console.log("issue", issue)
+   
     const date = issue.updatedAt
     const dateObj = new Date(date);
     const formattedDate = dateObj.toLocaleDateString('en-US', {
@@ -239,17 +238,17 @@ ${issue.labels.map((label) => {
 
 document.addEventListener('DOMContentLoaded', () => {
     allBtn.addEventListener('click', () => {
-        console.log("clicked all")
+         
         renderDisplayAllDataByGrid(allissueData)
     })
 
     closebtn.addEventListener('click', () => {
-        console.log("clicked close")
+       
         renderDisplayAllDataByGrid(closedData)
     })
 
     openbtn.addEventListener('click', () => {
-        console.log("clicked open")
+       
         renderDisplayAllDataByGrid(openData)
     })
 
