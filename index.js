@@ -238,18 +238,17 @@ ${issue.labels.map((label) => {
 
 document.addEventListener('DOMContentLoaded', () => {
     allBtn.addEventListener('click', () => {
-         
         renderDisplayAllDataByGrid(allissueData)
     })
 
     closebtn.addEventListener('click', () => {
-       
         renderDisplayAllDataByGrid(closedData)
+        issuelength.innerText = closedData.length
     })
 
     openbtn.addEventListener('click', () => {
-       
         renderDisplayAllDataByGrid(openData)
+        issuelength.innerText = openData.length
     })
 
 })
